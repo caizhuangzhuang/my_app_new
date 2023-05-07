@@ -16,6 +16,7 @@ export const dalImg = (url) => {
  * @param {*} token
  */
 export const setToken = (token) => {
+  console.log(1);
   sessionStorage.setItem("token", token);
 };
 
