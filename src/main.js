@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import "./style.scss";
 import { createRouter, createWebHashHistory } from "vue-router";
 import App from "./App.vue";
+import { isLogined } from "./utils/tools";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -45,8 +46,23 @@ const router = createRouter({
       path: "/user",
       name: "User",
       component: () => import("./views/User.vue"),
+      meta: {
+        needLogin: true, //需要登录才能访问
+      },
     },
   ],
+});
+// 看看是否登录，没登录需要先登录
+router.beforeEach((to, from, next) => {
+  if (to.meta.needLogin) {
+    if (isLogined()) {
+      next();
+    } else {
+      next({ name: "Login" });
+    }
+  } else {
+    next();
+  }
 });
 
 createApp(App).use(router).mount("#app");

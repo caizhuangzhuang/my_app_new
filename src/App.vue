@@ -11,5 +11,6 @@ import TabBar from "./components/TabBar.vue";
 <style>
 .content {
   flex: 1;
+  overflow: auto;
 }
 </style>
