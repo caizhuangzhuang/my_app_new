@@ -50,6 +50,14 @@ const router = createRouter({
         needLogin: true, //需要登录才能访问
       },
     },
+    {
+      path: "/userinfo",
+      name: "UserInfo",
+      component: () => import("./views/userinfo.vue"),
+      meta: {
+        needLogin: true, //需要登录才能访问
+      },
+    },
   ],
 });
 // 看看是否登录，没登录需要先登录

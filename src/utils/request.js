@@ -1,6 +1,7 @@
 import axios from "axios";
 import nprogress from "nprogress";
 import "nprogress/nprogress.css";
+import { getToken } from "./tools";
 
 export const serverUrl = "http://localhost:1337";
 
@@ -33,15 +34,20 @@ export const get = (url, params) =>
  */
 export const post = (url, data) => instance.post(url, data);
 
+/**put请求
+ *
+ */
+export const put = (url, data) => instance.put(url, data);
+
 // 全局拦截
 // 添加请求拦截器
-axios.interceptors.request.use(
+instance.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
 
     //显示loding效果
     nprogress.start();
-
+    config.headers.token = getToken();
     return config;
   },
   function (error) {
@@ -51,7 +57,7 @@ axios.interceptors.request.use(
 );
 
 // 添加响应拦截器
-axios.interceptors.response.use(
+instance.interceptors.response.use(
   function (response) {
     //隐藏loding效果
     nprogress.done();
